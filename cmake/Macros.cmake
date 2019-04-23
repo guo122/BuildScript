@@ -1,6 +1,5 @@
 
 # -DTHE_PROJECT_PREFIX="prefix"
-# -DTHE_PROJECT_ROOT_DIR=""
 
 include(CMakeParseArguments)
 MESSAGE(STATUS "is build" ${CMAKE_BUILD_TYPE})
@@ -8,17 +7,17 @@ MESSAGE(STATUS "is build" ${CMAKE_BUILD_TYPE})
 set(OUTPATH_SUFFIX "/Debug")
 
 if(${THE_PROJECT_PREFIX}_OS_WINDOWS)
-	set(BIN_PATH ${THE_PROJECT_ROOT_DIR}/bin/win64)
-	set(LIB_PATH ${THE_PROJECT_ROOT_DIR}/lib/win64)
+	set(BIN_PATH ${CMAKE_ROOT_DIR}/bin/win64)
+	set(LIB_PATH ${CMAKE_ROOT_DIR}/lib/win64)
 elseif(${THE_PROJECT_PREFIX}_OS_MACOS)
-	set(BIN_PATH ${THE_PROJECT_ROOT_DIR}/bin/macos)
-	set(LIB_PATH ${THE_PROJECT_ROOT_DIR}/lib/macos)
+	set(BIN_PATH ${CMAKE_ROOT_DIR}/bin/macos)
+	set(LIB_PATH ${CMAKE_ROOT_DIR}/lib/macos)
 elseif(${THE_PROJECT_PREFIX}_OS_IOS)
-	set(BIN_PATH ${THE_PROJECT_ROOT_DIR}/bin/ios)
-	set(LIB_PATH ${THE_PROJECT_ROOT_DIR}/lib/ios)
+	set(BIN_PATH ${CMAKE_ROOT_DIR}/bin/ios)
+	set(LIB_PATH ${CMAKE_ROOT_DIR}/lib/ios)
 else()
-	set(BIN_PATH ${THE_PROJECT_ROOT_DIR}/bin/unkown${OUTPATH_SUFFIX})
-	set(LIB_PATH ${THE_PROJECT_ROOT_DIR}/lib/unkown${OUTPATH_SUFFIX})
+	set(BIN_PATH ${CMAKE_ROOT_DIR}/bin/unkown${OUTPATH_SUFFIX})
+	set(LIB_PATH ${CMAKE_ROOT_DIR}/lib/unkown${OUTPATH_SUFFIX})
 endif()
 
 macro(add_library_macro target)
