@@ -1,0 +1,6 @@
+[submodule "cmake/polly"]
+	path = cmake/polly
+	url = https://github.com/guo122/polly.git
+[submodule "cmake/ios-toolchain"]
+	path = cmake/ios-toolchain
+	url = https://github.com/guo122/ios-cmake.git
