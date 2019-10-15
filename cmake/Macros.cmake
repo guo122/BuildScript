@@ -3,7 +3,7 @@ include(CMakeParseArguments)
 MESSAGE(STATUS "is build" ${CMAKE_BUILD_TYPE})
 
 macro(add_lib target)
-    cmake_parse_arguments(THIS "SHARED;INSTALL" "" "FOLDER;SOURCES" ${ARGN})
+	cmake_parse_arguments(THIS "SHARED;INSTALL" "FOLDER" "SOURCES" ${ARGN})
 
 	if (THIS_SHARED)
 		SET(LIBRARY_OUTPUT_PATH ${BIN_PATH})
@@ -35,7 +35,7 @@ macro(add_lib target)
 endmacro()
 
 macro(add_exe target)
-    cmake_parse_arguments(THIS "" "" "FOLDER;SOURCES" ${ARGN})
+	cmake_parse_arguments(THIS "" "FOLDER" "SOURCES" ${ARGN})
 	
 	SET(EXECUTABLE_OUTPUT_PATH ${BIN_PATH})
 		
@@ -48,18 +48,36 @@ macro(add_exe target)
 endmacro()
 
 macro(aux_src)
+	#cmake_parse_arguments(THIS "" "" "INCLUDE;EXCLUDE" ${ARGN})
+
 	set(AUX_SRCS)
-    set(_src_root_path "${CMAKE_CURRENT_SOURCE_DIR}")
-    file(
-        GLOB_RECURSE _source_list
-        LIST_DIRECTORIES false
-        "${_src_root_path}/*.c"
-        "${_src_root_path}/*.cpp"
-        "${_src_root_path}/*.h"
-        "${_src_root_path}/*.hpp"
-        "${_src_root_path}/*.m"
-        "${_src_root_path}/*.mm"
-    )        
+	set(_src_root_path "${CMAKE_CURRENT_SOURCE_DIR}")
+	if(${ARGC} GREATER 0)
+		foreach(_path IN ITEMS ${ARGN})
+			file(
+				GLOB _cur_source_list
+				LIST_DIRECTORIES false
+        		"${_src_root_path}/${_path}/*.c"
+        		"${_src_root_path}/${_path}/*.cpp"
+        		"${_src_root_path}/${_path}/*.h"
+        		"${_src_root_path}/${_path}/*.hpp"
+        		"${_src_root_path}/${_path}/*.m"
+        		"${_src_root_path}/${_path}/*.mm"
+    		)        
+			list(APPEND _source_list ${_cur_source_list})
+		endforeach()
+	else()
+		file(
+			GLOB_RECURSE _source_list
+			LIST_DIRECTORIES false
+        	"${_src_root_path}/*.c"
+        	"${_src_root_path}/*.cpp"
+        	"${_src_root_path}/*.h"
+        	"${_src_root_path}/*.hpp"
+        	"${_src_root_path}/*.m"
+        	"${_src_root_path}/*.mm"
+    	)        
+	endif()
 
     foreach(_source IN ITEMS ${_source_list})
         get_filename_component(_source_path "${_source}" PATH)
@@ -74,7 +92,7 @@ macro(aux_src)
 endmacro()
 
 macro(aux_add_lib target the_folder)
-	aux_src()
+	aux_src(${ARGN})
 	add_lib(
 		${target}
 		FOLDER ${the_folder}
@@ -83,7 +101,7 @@ macro(aux_add_lib target the_folder)
 endmacro()
 
 macro(aux_add_dll target the_folder)
-    aux_src()
+	aux_src(${ARGN})
     add_lib(
         ${target}
 		SHARED
@@ -93,7 +111,7 @@ macro(aux_add_dll target the_folder)
 endmacro()
 
 macro(aux_add_exe target the_folder)
-    aux_src()
+	aux_src(${ARGN})
     add_exe(
         ${target}
         FOLDER ${the_folder}
