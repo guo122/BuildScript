@@ -58,11 +58,13 @@ macro(aux_src)
 				GLOB _cur_source_list
 				LIST_DIRECTORIES false
         		"${_src_root_path}/${_path}/*.c"
+        		"${_src_root_path}/${_path}/*.cc"
         		"${_src_root_path}/${_path}/*.cpp"
         		"${_src_root_path}/${_path}/*.h"
         		"${_src_root_path}/${_path}/*.hpp"
         		"${_src_root_path}/${_path}/*.m"
         		"${_src_root_path}/${_path}/*.mm"
+        		"${_src_root_path}/${_path}/*.inl"
     		)        
 			list(APPEND _source_list ${_cur_source_list})
 		endforeach()
@@ -71,18 +73,20 @@ macro(aux_src)
 			GLOB_RECURSE _source_list
 			LIST_DIRECTORIES false
         	"${_src_root_path}/*.c"
+        	"${_src_root_path}/*.cc"
         	"${_src_root_path}/*.cpp"
         	"${_src_root_path}/*.h"
         	"${_src_root_path}/*.hpp"
         	"${_src_root_path}/*.m"
         	"${_src_root_path}/*.mm"
+        	"${_src_root_path}/*.inl"
     	)        
 	endif()
 
     foreach(_source IN ITEMS ${_source_list})
         get_filename_component(_source_path "${_source}" PATH)
         file(RELATIVE_PATH _source_path_rel "${_src_root_path}" "${_source_path}")
-		include_directories(${_source_path_rel})
+		#include_directories(${_source_path_rel})
         string(REPLACE "/" "\\" _group_path "${_source_path_rel}")
         source_group("${_group_path}" FILES "${_source}")
         file(RELATIVE_PATH _source_rel "${_src_root_path}" "${_source}")
