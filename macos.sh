@@ -1,5 +1,6 @@
+#!/bin/bash
 
-ggsubup
+cd "$(dirname "$0")"/..
 
 cmakeImpl() {
 	cmake -E make_directory "Solution/macOS" && cmake -E chdir "Solution/macOS" cmake -G "Xcode" ../../
