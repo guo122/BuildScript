@@ -7,9 +7,9 @@ PROJECT_PATH=`pwd`
 rm -rf "$PROJECT_PATH/ios.sh"
 rm -rf "$PROJECT_PATH/macos.sh"
 rm -rf "$PROJECT_PATH/windows.bat"
-rm -rf "$PROJECT_PATH/clear.sh"
+rm -rf "$PROJECT_PATH/clean.sh"
 
 ln -s "$PROJECT_PATH/BuildScript/cmake-template/ios.sh" "$PROJECT_PATH/ios.sh"
 ln -s "$PROJECT_PATH/BuildScript/cmake-template/macos.sh" "$PROJECT_PATH/macos.sh"
 ln -s "$PROJECT_PATH/BuildScript/cmake-template/windows.bat" "$PROJECT_PATH/windows.bat"
-ln -s "$PROJECT_PATH/BuildScript/cmake-template/clear.sh" "$PROJECT_PATH/clear.sh"
+ln -s "$PROJECT_PATH/BuildScript/cmake-template/clean.sh" "$PROJECT_PATH/clean.sh"
